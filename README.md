@@ -41,7 +41,7 @@ mvn clean verify
 and to run the tests in distributed mode, run the command
 
 ```
-mvn clean verify -P ci
+mvn clean verify -P ci -Dip=<IP_Address_Goes_Here>
 ```
 
 ## References

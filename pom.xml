@@ -18,6 +18,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
    <version>2.9.0</version>
+    <ip>127.0.0.1</ip>
   </properties>
 
   <dependencies>
@@ -117,12 +118,12 @@
             <configuration>
 		<jMeterProcessJVMSettings>
 			<arguments>
-				<argument>-Djava.rmi.server.hostname=192.168.241.137</argument>
+				<argument>-Djava.rmi.server.hostname=${ip}</argument>
 			</arguments>s
-		</jMeterProcessJVMSettings> 
+		</jMeterProcessJVMSettings>
               <remoteConfig>
                 <startServersBeforeTests>true</startServersBeforeTests>
-                <serverList>192.168.241.137</serverList>
+                <serverList>${ip}</serverList>
                 <stopServersAfterTests>true</stopServersAfterTests>
               </remoteConfig>
             </configuration>
