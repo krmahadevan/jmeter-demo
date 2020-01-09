@@ -17,6 +17,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+   <version>2.9.0</version>
   </properties>
 
   <dependencies>
@@ -84,7 +85,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>2.9.0</version>
+            <version>${version}</version>
             <executions>
               <execution>
                 <id>jmeter-tests</id>
@@ -104,7 +105,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>2.9.0</version>
+            <version>${version}</version>
             <executions>
               <execution>
                 <id>jmeter-tests</id>
@@ -114,9 +115,14 @@
               </execution>
             </executions>
             <configuration>
+		<jMeterProcessJVMSettings>
+			<arguments>
+				<argument>-Djava.rmi.server.hostname=192.168.241.137</argument>
+			</arguments>s
+		</jMeterProcessJVMSettings> 
               <remoteConfig>
                 <startServersBeforeTests>true</startServersBeforeTests>
-                <serverList>192.168.0.101</serverList>
+                <serverList>192.168.241.137</serverList>
                 <stopServersAfterTests>true</stopServersAfterTests>
               </remoteConfig>
             </configuration>
