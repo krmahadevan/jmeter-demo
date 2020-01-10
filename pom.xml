@@ -17,8 +17,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-   <version>2.9.0</version>
+    <version>2.9.0</version>
     <ip>127.0.0.1</ip>
+    <servers>192.168.241.137</servers>
   </properties>
 
   <dependencies>
@@ -109,6 +110,15 @@
             <version>${version}</version>
             <executions>
               <execution>
+                <id>start jmeter-server</id>
+                <goals>
+                  <goal>remote-server</goal>
+                </goals>
+                <configuration>
+                  <runInBackground>true</runInBackground>
+                </configuration>
+              </execution>
+              <execution>
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
@@ -116,14 +126,16 @@
               </execution>
             </executions>
             <configuration>
-		<jMeterProcessJVMSettings>
-			<arguments>
-				<argument>-Djava.rmi.server.hostname=${ip}</argument>
-			</arguments>s
-		</jMeterProcessJVMSettings>
+              <exportedRmiHostname>${ip}</exportedRmiHostname>
+              <serverPort>3010</serverPort>
+              <jMeterProcessJVMSettings>
+                <arguments>
+                  <argument>-Djava.rmi.server.hostname=${ip}</argument>
+                </arguments>
+              </jMeterProcessJVMSettings>
               <remoteConfig>
                 <startServersBeforeTests>true</startServersBeforeTests>
-                <serverList>${ip}</serverList>
+                <serverList>${servers}</serverList>
                 <stopServersAfterTests>true</stopServersAfterTests>
               </remoteConfig>
             </configuration>
