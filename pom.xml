@@ -22,15 +22,6 @@
     <servers>192.168.241.137</servers>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
@@ -105,19 +96,26 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>local-ip</goal>
+                </goals>
+                <configuration>
+                  <localIpProperty>local.ip</localIpProperty>
+                </configuration>
+                <phase>initialize</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
             <version>${version}</version>
             <executions>
-              <execution>
-                <id>start jmeter-server</id>
-                <goals>
-                  <goal>remote-server</goal>
-                </goals>
-                <configuration>
-                  <runInBackground>true</runInBackground>
-                </configuration>
-              </execution>
               <execution>
                 <id>jmeter-tests</id>
                 <goals>
@@ -130,13 +128,12 @@
               <serverPort>3010</serverPort>
               <jMeterProcessJVMSettings>
                 <arguments>
-                  <argument>-Djava.rmi.server.hostname=${ip}</argument>
+                  <argument>-Djava.rmi.server.hostname=${local.ip}</argument>
                 </arguments>
               </jMeterProcessJVMSettings>
               <remoteConfig>
                 <startServersBeforeTests>true</startServersBeforeTests>
                 <serverList>${servers}</serverList>
-                <stopServersAfterTests>true</stopServersAfterTests>
               </remoteConfig>
             </configuration>
           </plugin>

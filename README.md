@@ -19,7 +19,7 @@ mvn clean verify
 and to run the tests in distributed mode, run the command
 
 ```
-mvn clean verify -P ci -Dip=<IP_Address_Goes_Here> -Dservers=<IP_Address_Goes_Here>
+mvn clean verify -P ci -Dservers=<JMeterServerIpGoesHere>
 ```
 
 ## References
@@ -29,4 +29,4 @@ mvn clean verify -P ci -Dip=<IP_Address_Goes_Here> -Dservers=<IP_Address_Goes_He
 3. https://github.com/justb4/docker-jmeter
 4. https://medium.com/@DragosCampean/how-to-build-a-distributed-load-testing-infrastructure-with-aws-docker-and-jmeter-accf3c2aa3a3
 5. Complete plugin configuration sample available [here](https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/blob/master/src/it/remote-test/pom.xml#L36-L109)
-
+6. https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/issues/354
