@@ -17,7 +17,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <version>2.9.0</version>
+        <version>2.9.0</version>
+<!--    <version>3.0.0</version>-->
     <ip>127.0.0.1</ip>
     <servers>192.168.241.137</servers>
   </properties>
@@ -80,6 +81,12 @@
             <artifactId>jmeter-maven-plugin</artifactId>
             <version>${version}</version>
             <executions>
+                <execution>
+                  <id>configuration</id>
+                  <goals>
+                    <goal>configure</goal>
+                  </goals>
+                </execution>
               <execution>
                 <id>jmeter-tests</id>
                 <goals>
@@ -87,6 +94,9 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <generateReports>true</generateReports>
+            </configuration>
           </plugin>
         </plugins>
       </build>
@@ -96,41 +106,42 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>3.0.0</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>local-ip</goal>
-                </goals>
-                <configuration>
-                  <localIpProperty>local.ip</localIpProperty>
-                </configuration>
-                <phase>initialize</phase>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
             <version>${version}</version>
             <executions>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+              </execution>
               <execution>
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
               </execution>
+              <execution>
+                <id>verify</id>
+                <goals>
+                  <goal>results</goal>
+                </goals>
+              </execution>
             </executions>
             <configuration>
-              <exportedRmiHostname>${ip}</exportedRmiHostname>
-              <serverPort>3010</serverPort>
+              <generateReports>true</generateReports>
+              <scanResultsForSuccessfulRequests>true</scanResultsForSuccessfulRequests>
+              <scanResultsForFailedRequests>true</scanResultsForFailedRequests>
+              <ignoreResultFailures>true</ignoreResultFailures>
+              <downloadOptionalDependencies>false</downloadOptionalDependencies>
+              <!--
               <jMeterProcessJVMSettings>
                 <arguments>
-                  <argument>-Djava.rmi.server.hostname=${local.ip}</argument>
+                  <argument>-Djava.rmi.server.hostname=${hostname}</argument>
                 </arguments>
               </jMeterProcessJVMSettings>
+              -->
               <remoteConfig>
                 <startServersBeforeTests>true</startServersBeforeTests>
                 <serverList>${servers}</serverList>
